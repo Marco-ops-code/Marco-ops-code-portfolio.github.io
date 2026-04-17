@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio vitrine de developpeur web. Projets, services et contact."
+    />
+    <title>Portfolio | Super Vitrine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+
+    <header class="header">
+      <div class="container nav">
+        <a href="#home" class="logo">TonNom<span>.</span></a>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#about">A propos</a></li>
+            <li><a href="#skills">Competences</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="btn btn-small" id="themeToggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero container reveal">
+        <p class="badge">Disponible pour missions freelance</p>
+        <h1>Je cree des experiences web rapides, propres et memorables.</h1>
+        <p class="hero-text">
+          Portfolio "super vitrine" concu en HTML, CSS, JavaScript et PHP pour
+          presenter ton expertise avec style.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn">Voir mes projets</a>
+          <a href="#contact" class="btn btn-outline">Me contacter</a>
+        </div>
+      </section>
+
+      <section id="about" class="section container reveal">
+        <h2>A propos</h2>
+        <p>
+          Je suis developpeur web passionne par les interfaces premium et les
+          performances. J'aide les entreprises a transformer leurs idees en
+          produits web fiables et esthetiques.
+        </p>
+      </section>
+
+      <section id="skills" class="section container reveal">
+        <h2>Competences</h2>
+        <div class="skills-grid">
+          <article class="card">HTML5 semantique et SEO</article>
+          <article class="card">CSS3 moderne et responsive design</article>
+          <article class="card">JavaScript interactif et animations</article>
+          <article class="card">PHP backend pour formulaires/API</article>
+          <article class="card">Optimisation performances web</article>
+          <article class="card">UI/UX orientee conversion</article>
+        </div>
+      </section>
+
+      <section id="projects" class="section container reveal">
+        <h2>Projets</h2>
+        <div class="projects-grid">
+          <article class="project">
+            <h3>Landing conversion</h3>
+            <p>Page marketing ultra-rapide avec design premium.</p>
+            <a href="#" aria-label="Voir le projet Landing conversion">Voir</a>
+          </article>
+          <article class="project">
+            <h3>Site vitrine entreprise</h3>
+            <p>Refonte complete d'identite digitale en responsive.</p>
+            <a href="#" aria-label="Voir le projet Site vitrine entreprise">Voir</a>
+          </article>
+          <article class="project">
+            <h3>Mini CRM PHP</h3>
+            <p>Outil interne de gestion de demandes clients.</p>
+            <a href="#" aria-label="Voir le projet Mini CRM PHP">Voir</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section container reveal">
+        <h2>Contact</h2>
+        <p>Parle-moi de ton projet et je te reponds rapidement.</p>
+        <form id="contactForm" class="contact-form" method="post" action="contact.php">
+          <label>
+            Nom
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="btn">Envoyer</button>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© <span id="year"></span> TonNom - Tous droits reserves.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
