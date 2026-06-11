@@ -7,117 +7,693 @@
       name="description"
       content="Portfolio vitrine de developpeur web. Projets, services et contact."
     />
-    <title>Portfolio | Super Vitrine</title>
+    <title>Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+    />
+    <link rel="stylesheet" href="style.css?v=20250611" />
   </head>
   <body>
     <div class="background-glow" aria-hidden="true"></div>
 
     <header class="header">
       <div class="container nav">
-        <a href="#home" class="logo">TonNom<span>.</span></a>
-        <nav>
+        <a href="#home" class="logo">
+          <img
+            src="assets/logoMarcportfolio.png"
+            alt="Photo de Marc-Onel Volcimus"
+            class="logo-avatar"
+          />
+          <span class="logo-text">Marc-Onel VOLCIMUS<span>.</span></span>
+        </a>
+        <nav class="site-nav site-nav--desktop" aria-label="Navigation principale desktop">
           <ul class="nav-links">
-            <li><a href="#about">A propos</a></li>
-            <li><a href="#skills">Competences</a></li>
-            <li><a href="#projects">Projets</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about" data-nav="about">A propos</a></li>
+            <li><a href="#services" data-nav="services">Services</a></li>
+            <li><a href="#skills" data-nav="skills">Competences</a></li>
+            <li><a href="#projects" data-nav="projects">Portfolio</a></li>
+            <li><a href="#subcriptions" data-nav="subcriptions">Tarification</a></li>
+            <li>
+              <a href="#social" data-nav="social"
+                ><i class="bi bi-share-fill" aria-hidden="true"></i> Social</a
+              >
+            </li>
+            <li><a href="#contact" data-nav="contact">Contact</a></li>
           </ul>
         </nav>
-        <button class="btn btn-small" id="themeToggle" type="button">Theme</button>
+        <div class="nav-toolbar">
+          <button class="btn btn-small nav-theme-btn" id="themeToggle" type="button">Theme</button>
+          <button
+            class="nav-burger"
+            id="navBurger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="siteNavMobile"
+            aria-label="Ouvrir le menu"
+          >
+            <span class="nav-burger__line" aria-hidden="true"></span>
+            <span class="nav-burger__line" aria-hidden="true"></span>
+            <span class="nav-burger__line" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
+      <nav class="site-nav site-nav--mobile" id="siteNavMobile" aria-label="Navigation principale mobile">
+        <ul class="nav-links nav-links--mobile">
+          <li><a href="#about" data-nav="about">A propos</a></li>
+          <li><a href="#services" data-nav="services">Services</a></li>
+          <li><a href="#skills" data-nav="skills">Competences</a></li>
+          <li><a href="#projects" data-nav="projects">Portfolio</a></li>
+          <li><a href="#subcriptions" data-nav="subcriptions">Tarification</a></li>
+          <li>
+            <a href="#social" data-nav="social"
+              ><i class="bi bi-share-fill" aria-hidden="true"></i> Social</a
+            >
+          </li>
+          <li><a href="#contact" data-nav="contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button
+        class="nav-backdrop"
+        id="navBackdrop"
+        type="button"
+        tabindex="-1"
+        aria-hidden="true"
+        aria-label="Fermer le menu"
+      ></button>
     </header>
 
     <main id="home">
       <section class="hero container reveal">
-        <p class="badge">Disponible pour missions freelance</p>
-        <h1>Je cree des experiences web rapides, propres et memorables.</h1>
-        <p class="hero-text">
-          Portfolio "super vitrine" concu en HTML, CSS, JavaScript et PHP pour
-          presenter ton expertise avec style.
-        </p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn">Voir mes projets</a>
-          <a href="#contact" class="btn btn-outline">Me contacter</a>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-clock" aria-live="polite">
+              <span class="hero-clock-glow" aria-hidden="true"></span>
+              <span class="hero-clock-orb" aria-hidden="true">
+                <span class="hero-clock-ring"></span>
+              </span>
+              <div class="hero-clock-content">
+                <span class="hero-clock-label"
+                  ><i class="bi bi-clock-history" aria-hidden="true"></i> Horloge locale</span
+                >
+                <strong id="heroClockTime">--:--:--</strong>
+                <span id="heroClockDate">-- --- ----</span>
+                <span class="hero-clock-zone">UTC local</span>
+              </div>
+              <span class="hero-clock-progress" aria-hidden="true">
+                <span id="heroClockProgressFill"></span>
+              </span>
+            </div>
+            <p class="badge">Disponible pour missions freelance</p>
+            <h1>Je cree des experiences web rapides, propres et memorables.</h1>
+              <div class="hero-actions">
+              <a href="#projects" class="btn">Voir mes projets</a>
+              <a href="#contact" class="btn btn-outline">Me contacter</a>
+            </div>
+          </div>
+          <aside class="hero-photo" aria-label="Zone photo profil">
+            <img
+              src="assets/logoMarcportfolio.png"
+              alt="Photo de profil de Marc-Onel Volcimus"
+            />
+          </aside>
         </div>
       </section>
 
       <section id="about" class="section container reveal">
-        <h2>A propos</h2>
-        <p>
-          Je suis developpeur web passionne par les interfaces premium et les
-          performances. J'aide les entreprises a transformer leurs idees en
-          produits web fiables et esthetiques.
+        <h2>A propos de moi</h2>
+        <div class="about-layout">
+          <aside class="about-photo-card" aria-label="Photo de presentation">
+            <img src="assets/logoMarcportfolio.png" alt="Portrait de Marc-Onel Volcimus" />
+            <p class="about-photo-caption">
+              Je suis Marc-Onel Volcimus, developpeur web passionne par la qualite,
+              l'esthetique et l'impact concret de chaque produit digital.
+            </p>
+          </aside>
+          <div class="about-content">
+            <p>
+              Je suis developpeur web passionne par les interfaces premium et les
+              performances. J'aide les entreprises a transformer leurs idees en
+              produits web fiables, esthetiques et memorables.
+            </p>
+            <div class="about-values-grid">
+              <article class="card value-card">
+                <span class="value-icon" aria-hidden="true"><i class="bi bi-palette-fill"></i></span>
+                <h3>Creativite</h3>
+                <p>Je transforme les concepts en experiences visuelles uniques.</p>
+              </article>
+              <article class="card value-card">
+                <span class="value-icon" aria-hidden="true"><i class="bi bi-eye-fill"></i></span>
+                <h3>Vision</h3>
+                <p>Je pense produit sur le long terme pour construire une vraie marque.</p>
+              </article>
+              <article class="card value-card">
+                <span class="value-icon" aria-hidden="true"><i class="bi bi-lightbulb-fill"></i></span>
+                <h3>Innovation</h3>
+                <p>J'explore des solutions modernes pour offrir un resultat different.</p>
+              </article>
+              <article class="card value-card">
+                <span class="value-icon" aria-hidden="true"><i class="bi bi-fire"></i></span>
+                <h3>Passion</h3>
+                <p>Je mets de l'energie dans chaque detail pour depasser les attentes.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section container reveal">
+        <h2>Services</h2>
+        <p class="section-intro">
+          J'accompagne les marques et entrepreneurs dans la creation de produits web
+          rapides, elegants et centres sur la conversion.
         </p>
+        <div class="services-grid">
+          <article class="card service-card">
+            <h3>Site vitrine premium</h3>
+            <p>Conception de pages vitrines modernes qui renforcent ta credibilite.</p>
+          </article>
+          <article class="card service-card">
+            <h3>Landing pages performantes</h3>
+            <p>Pages focalisees conversion avec storytelling visuel et CTA efficaces.</p>
+          </article>
+          <article class="card service-card">
+            <h3>Site E-commerce (vente en ligne)</h3>
+            <p>Boutiques en ligne rapides, parcours d'achat fluides et mise en avant des produits.</p>
+          </article>
+          <article class="card service-card">
+            <h3>Blog (partage de contenu/actualites)</h3>
+            <p>Creation de blogs clairs pour publier des articles, conseils et nouveautes regulieres.</p>
+          </article>
+        </div>
       </section>
 
       <section id="skills" class="section container reveal">
         <h2>Competences</h2>
-        <div class="skills-grid">
-          <article class="card">HTML5 semantique et SEO</article>
-          <article class="card">CSS3 moderne et responsive design</article>
-          <article class="card">JavaScript interactif et animations</article>
-          <article class="card">PHP backend pour formulaires/API</article>
-          <article class="card">Optimisation performances web</article>
-          <article class="card">UI/UX orientee conversion</article>
+        <p class="section-intro">
+          Un mix entre technique, performance et experience utilisateur pour livrer des
+          produits web immersifs et efficaces.
+        </p>
+        <div class="skills-swiper-wrap">
+          <div class="swiper skills-swiper" aria-label="Carousel competences">
+            <div class="swiper-wrapper">
+          <article class="swiper-slide card skill-card" data-skill="html">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/html5/html5-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">HTML5 semantique et SEO</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Structure propre, balises accessibles et contenu optimise pour la visibilite.</p>
+            <div class="skill-meter"><span style="--level: 96%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="css">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/css3/css3-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">CSS3 moderne et responsive design</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Interfaces fluides, animations soignees et adaptation parfaite mobile/desktop.</p>
+            <div class="skill-meter"><span style="--level: 93%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="javascript">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/javascript/javascript-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">JavaScript interactif et animations</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Experiences dynamiques et micro-interactions qui donnent vie aux interfaces.</p>
+            <div class="skill-meter"><span style="--level: 90%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="php">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/php/php-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">PHP backend pour formulaires/API</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Logique serveur fiable pour traitement de donnees et endpoints simples.</p>
+            <div class="skill-meter"><span style="--level: 85%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="performance">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/webpack/webpack-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">Optimisation performances web</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Chargements rapides, ressources optimisees et navigation toujours reactive.</p>
+            <div class="skill-meter"><span style="--level: 91%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="ux">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/figma/figma-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">UI/UX orientee conversion</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Parcours utilisateur clair, design premium et decisions guidees par l'objectif.</p>
+            <div class="skill-meter"><span style="--level: 92%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="csharp">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/csharp/csharp-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">C#</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Applications orientees objet, performances et ecosystem .NET pour du backend robuste.</p>
+            <div class="skill-meter"><span style="--level: 88%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="python">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/python/python-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">Python</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Scripts, APIs et traitement de donnees avec une syntaxe claire et des librairies puissantes.</p>
+            <div class="skill-meter"><span style="--level: 89%"></span></div>
+          </article>
+          <article class="swiper-slide card skill-card" data-skill="mysql">
+            <div class="skill-card-head">
+              <img
+                class="skill-logo"
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons/mysql/mysql-original.svg"
+                alt=""
+                width="44"
+                height="44"
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="skill-title-anim">MySQL base de donnee</h3>
+            </div>
+            <div class="skill-code-shell" aria-hidden="true">
+              <div class="skill-code-demo"></div>
+            </div>
+            <p>Conception de schemas, requetes SQL optimisees et gestion fiable des donnees applicatives.</p>
+            <div class="skill-meter"><span style="--level: 87%"></span></div>
+          </article>
+            </div>
+          </div>
+          <div class="skills-carousel-controls" aria-label="Navigation du carousel competences">
+            <button class="skills-nav-btn skills-swiper-prev" id="skillsPrev" type="button" aria-label="Competence precedente">
+              <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            </button>
+            <button class="skills-nav-btn skills-swiper-next" id="skillsNext" type="button" aria-label="Competence suivante">
+              <i class="bi bi-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </section>
 
       <section id="projects" class="section container reveal">
-        <h2>Projets</h2>
-        <div class="projects-grid">
-          <article class="project">
-            <h3>Landing conversion</h3>
-            <p>Page marketing ultra-rapide avec design premium.</p>
-            <a href="#" aria-label="Voir le projet Landing conversion">Voir</a>
-          </article>
-          <article class="project">
-            <h3>Site vitrine entreprise</h3>
-            <p>Refonte complete d'identite digitale en responsive.</p>
-            <a href="#" aria-label="Voir le projet Site vitrine entreprise">Voir</a>
-          </article>
-          <article class="project">
-            <h3>Mini CRM PHP</h3>
-            <p>Outil interne de gestion de demandes clients.</p>
-            <a href="#" aria-label="Voir le projet Mini CRM PHP">Voir</a>
-          </article>
+        <h2>Portfolio</h2>
+        <p class="section-intro">
+          Trois axes d'expertise : le web, le mobile et la donnee pour des projets complets.
+        </p>
+        <div class="projects-swiper-wrap">
+          <div class="swiper projects-swiper" aria-label="Carousel projets">
+            <div class="swiper-wrapper">
+              <article class="swiper-slide project">
+                <a
+                  href="#project-detail-web"
+                  class="project-preview glightbox"
+                  data-gallery="portfolio"
+                  data-glightbox="type: inline; width: 560px; title: Developpement web"
+                  aria-label="Apercu du projet developpement web"
+                >
+                  <div class="project-window project-window--web" aria-hidden="true">
+                    <div class="project-window-bar">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="project-window-screen">
+                      <div class="project-line w-85"></div>
+                      <div class="project-line w-55"></div>
+                      <div class="project-grid-mini">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <h3>Web developer</h3>
+                <p>
+                  Sites vitrines, interfaces dynamiques et experiences web performantes avec les
+                  technologies modernes du front au back.
+                </p>
+                <div class="project-actions">
+                  <a href="#project-detail-web" class="glightbox" data-gallery="portfolio" data-glightbox="type: inline; width: 560px">Voir l'apercu</a>
+                  <a href="#contact">Me contacter</a>
+                </div>
+              </article>
+              <article class="swiper-slide project">
+                <a
+                  href="#project-detail-mobile"
+                  class="project-preview glightbox"
+                  data-gallery="portfolio"
+                  data-glightbox="type: inline; width: 560px; title: Application mobile"
+                  aria-label="Apercu du projet application mobile"
+                >
+                  <div class="project-window project-window--mobile" aria-hidden="true">
+                    <div class="project-window-bar">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="project-window-screen project-window-phone">
+                      <div class="project-phone-notch"></div>
+                      <div class="project-line w-70"></div>
+                      <div class="project-line w-45"></div>
+                      <div class="project-phone-cards">
+                        <span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <h3>Application mobile</h3>
+                <p>
+                  Conception d'applications mobiles orientees utilisateur, parcours fluides et
+                  integration avec tes services existants.
+                </p>
+                <div class="project-actions">
+                  <a href="#project-detail-mobile" class="glightbox" data-gallery="portfolio" data-glightbox="type: inline; width: 560px">Voir l'apercu</a>
+                  <a href="#contact">Me contacter</a>
+                </div>
+              </article>
+              <article class="swiper-slide project">
+                <a
+                  href="#project-detail-data"
+                  class="project-preview glightbox"
+                  data-gallery="portfolio"
+                  data-glightbox="type: inline; width: 560px; title: Data Mining"
+                  aria-label="Apercu du projet data mining"
+                >
+                  <div class="project-window project-window--data" aria-hidden="true">
+                    <div class="project-window-bar">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="project-window-screen">
+                      <div class="project-bars">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                      <div class="project-line w-75"></div>
+                      <div class="project-line w-50"></div>
+                    </div>
+                  </div>
+                </a>
+                <h3>Data Mining</h3>
+                <p>
+                  Exploration et analyse de donnees pour en extraire des insights utiles a ton
+                  produit ou a ta strategie.
+                </p>
+                <div class="project-actions">
+                  <a href="#project-detail-data" class="glightbox" data-gallery="portfolio" data-glightbox="type: inline; width: 560px">Voir l'apercu</a>
+                  <a href="#contact">Me contacter</a>
+                </div>
+              </article>
+            </div>
+            <div class="swiper-pagination projects-swiper-pagination"></div>
+          </div>
+        </div>
+        <div class="glightbox-inline-holder" hidden aria-hidden="true">
+          <div id="project-detail-web" class="project-lightbox">
+            <h3>Developpement web</h3>
+            <p>Sites vitrines, landing pages et applications web avec HTML, CSS, JavaScript et PHP.</p>
+            <ul>
+              <li>Interfaces responsives et accessibles</li>
+              <li>Optimisation SEO et performances</li>
+              <li>Integration API et formulaires</li>
+            </ul>
+          </div>
+          <div id="project-detail-mobile" class="project-lightbox">
+            <h3>Application mobile</h3>
+            <p>Applications orientees utilisateur avec parcours fluides et design coherent.</p>
+            <ul>
+              <li>Prototypage et UX mobile-first</li>
+              <li>Integration avec services existants</li>
+              <li>Tests et iteration rapide</li>
+            </ul>
+          </div>
+          <div id="project-detail-data" class="project-lightbox">
+            <h3>Data Mining</h3>
+            <p>Analyse de donnees pour transformer l'information en decisions strategiques.</p>
+            <ul>
+              <li>Collecte et nettoyage de donnees</li>
+              <li>Scripts Python et requetes SQL</li>
+              <li>Visualisation et rapports actionnables</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section id="contact" class="section container reveal">
-        <h2>Contact</h2>
-        <p>Parle-moi de ton projet et je te reponds rapidement.</p>
-        <form id="contactForm" class="contact-form" method="post" action="contact.php">
-          <label>
-            Nom
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows="5" required></textarea>
-          </label>
-          <button type="submit" class="btn">Envoyer</button>
-          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+      <section id="subcriptions" class="section container reveal pricing-section">
+        <h2>Tarification</h2>
+        <p class="section-intro pricing-intro">
+          Parlons de votre projet sans engagement. Ensemble, nous définirons la meilleure approche pour votre
+          transformation numérique.
+        </p>
+        <div class="pricing-split">
+          <article class="subcriptions-card pricing-panel pricing-panel--center">
+            <h3 class="pricing-panel__title">
+              <i class="bi bi-calendar2-check" aria-hidden="true"></i>
+              <span>Première consultation</span>
+            </h3>
+            <p>
+              30 à 40 minutes pour discuter de ton projet, de ton objectif et pour définir ensemble les stratégies
+              adaptées à ta situation.
+            </p>
+          </article>
+          <article class="subcriptions-card pricing-panel">
+            <h3 class="pricing-panel__title">
+              <i class="bi bi-sliders2" aria-hidden="true"></i>
+              <span>Personnalisation des tarifs</span>
+            </h3>
+            <p>
+              Chaque mission est unique : le devis s’appuie sur la portée du travail, les technologies concernées et
+              le calendrier souhaité. Voici les types de prestations alignées sur mes compétences.
+            </p>
+            <ul class="pricing-services">
+              <li>Sites vitrines, landing pages et interfaces web (HTML, CSS, JavaScript)</li>
+              <li>Formulaires, intégrations et logique côté serveur (PHP)</li>
+              <li>Performance web, chargement et bonnes pratiques techniques</li>
+              <li>UI/UX accessible et parcours utilisateur clairs</li>
+              <li>Applications et outils avec C# / .NET</li>
+              <li>Scripts, données et automatisation (Python)</li>
+            </ul>
+          </article>
+        </div>
+        <p class="pricing-cta">
+          <a href="#contact" class="btn">Demarrer maintenant</a>
+        </p>
+      </section>
+
+      <section id="social" class="section container reveal">
+        <h2><i class="bi bi-globe2" aria-hidden="true"></i> Social Network and Media</h2>
+        <div class="social-matrix">
+          <div class="matrix-rain" aria-hidden="true">
+            <span>00111010001010001</span>
+            <span>10100101100101011</span>
+            <span>11001010011100010</span>
+            <span>01010111001010101</span>
+            <span>11100010101001101</span>
+            <span>00101110100011010</span>
+            <span>10010100111010110</span>
+            <span>01101001010100111</span>
+            <span>11010100101110010</span>
+            <span>00110101001101001</span>
+            <span>10111001001011100</span>
+            <span>01001110100100101</span>
+            <span>11100100101011010</span>
+            <span>00011010111001011</span>
+            <span>00000000000000000</span>
+          </div>
+          <p
+            class="section-intro social-typing"
+            id="socialTyping"
+            data-text="Connectons-nous sur mes plateformes pour suivre mes projets, conseils et contenus."
+          ></p>
+          <div class="social-grid" aria-label="Reseaux sociaux">
+            <a href="#" class="social-link social-link--github" aria-label="GitHub">
+              <i class="bi bi-github"></i><span>GitHub</span>
+            </a>
+            <a href="#" class="social-link social-link--youtube" aria-label="YouTube">
+              <i class="bi bi-youtube"></i><span>YouTube</span>
+            </a>
+            <a href="#" class="social-link social-link--whatsapp" aria-label="WhatsApp">
+              <i class="bi bi-whatsapp"></i><span>WhatsApp</span>
+            </a>
+            <a href="#" class="social-link social-link--facebook" aria-label="Facebook">
+              <i class="bi bi-facebook"></i><span>Facebook</span>
+            </a>
+            <a href="#" class="social-link social-link--instagram" aria-label="Instagram">
+              <i class="bi bi-instagram"></i><span>Instagram</span>
+            </a>
+            <a href="#" class="social-link social-link--vk" aria-label="VK">
+              <i class="bi bi-chat-dots-fill"></i><span>VK</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section container reveal contact-section">
+        <header class="contact-hero">
+          <h2 class="contact-title">
+            <span class="contact-title-primary" data-text="Travaillons ensemble">Travaillons <em>ensemble</em></span>
+            <span class="contact-title-secondary"
+              >Es-tu prêt à concrétiser tes pensées en réalité&nbsp;? Discutons, puis réalisons tout ça
+              <strong>ensemble</strong> — collaborons pour donner vie à ce que tu imagines.</span
+            >
+          </h2>
+        </header>
+        <div class="contact-links-grid">
+          <a class="contact-link-card" href="mailto:marconelvolcimus079@gmail.com">
+            <span class="contact-link-card__icon" aria-hidden="true"><i class="bi bi-envelope-fill"></i></span>
+            <span class="contact-link-card__label">Email</span>
+            <span class="contact-link-card__value">marconelvolcimus079@gmail.com</span>
+          </a>
+          <a class="contact-link-card" href="tel:+79965064486">
+            <span class="contact-link-card__icon" aria-hidden="true"><i class="bi bi-telephone-fill"></i></span>
+            <span class="contact-link-card__label">Telephone</span>
+            <span class="contact-link-card__value">+7996 506 44 86</span>
+          </a>
+        </div>
+        <form
+          id="contactForm"
+          class="contact-form gsap-fade"
+          action="https://formspree.io/f/meewlnrz"
+          method="POST"
+          novalidate
+        >
+          <p class="contact-form-intro">
+            Ou envoie-moi un message directement — je reponds en general sous 24 h.
+          </p>
+          <div class="contact-form-grid">
+            <div class="form-field">
+              <label for="contactName">Nom</label>
+              <input type="text" id="contactName" name="name" autocomplete="name" required />
+            </div>
+            <div class="form-field">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="email" autocomplete="email" required />
+            </div>
+            <div class="form-field form-field--full">
+              <label for="contactSubject">Sujet</label>
+              <input type="text" id="contactSubject" name="subject" required />
+            </div>
+            <div class="form-field form-field--full">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" rows="5" required></textarea>
+            </div>
+          </div>
+          <input type="hidden" name="_subject" id="contactFormSubject" value="Nouveau message portfolio" />
+          <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="contact-form-actions">
+            <button type="submit" class="btn" id="contactSubmit">Envoyer le message</button>
+            <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+          </div>
         </form>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container">
-        <p>© <span id="year"></span> TonNom - Tous droits reserves.</p>
+        <p>© <span id="year"></span> Marc-Onel Volcimus - Tous droits reserves.</p>
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4.3.6/dist/bundles/anime.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="script.js?v=20250611"></script>
   </body>
 </html>
