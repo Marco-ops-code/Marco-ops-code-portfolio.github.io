@@ -26,12 +26,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
     />
-    <link rel="stylesheet" href="style.css?v=20250612" />
+    <link rel="stylesheet" href="style.css?v=20250613-nav2" />
   </head>
   <body>
     <div class="background-glow" aria-hidden="true"></div>
 
-    <header class="header">
+    <header class="header" id="siteHeader">
       <div class="container nav">
         <a href="#home" class="logo">
           <img
@@ -41,23 +41,34 @@
           />
           <span class="logo-text">Marc-Onel VOLCIMUS<span>.</span></span>
         </a>
-        <nav class="site-nav site-nav--desktop" aria-label="Navigation principale desktop">
-          <ul class="nav-links">
-            <li><a href="#about" data-nav="about">A propos</a></li>
+        <nav class="site-nav site-nav--desktop" aria-label="Navigation principale">
+          <ul class="nav-links" id="navLinksSource">
+            <li><a href="#about" data-nav="about">À propos</a></li>
             <li><a href="#services" data-nav="services">Services</a></li>
-            <li><a href="#skills" data-nav="skills">Competences</a></li>
+            <li><a href="#skills" data-nav="skills">Compétences</a></li>
             <li><a href="#projects" data-nav="projects">Portfolio</a></li>
-            <li><a href="#subcriptions" data-nav="subcriptions">Tarification</a></li>
+            <li><a href="#subcriptions" data-nav="subcriptions">Tarifs</a></li>
             <li>
               <a href="#social" data-nav="social"
                 ><i class="bi bi-share-fill" aria-hidden="true"></i> Social</a
               >
             </li>
-            <li><a href="#contact" data-nav="contact">Contact</a></li>
+            <li>
+              <a href="#contact" class="nav-link--cta" data-nav="contact">Contact</a>
+            </li>
           </ul>
         </nav>
         <div class="nav-toolbar">
-          <button class="btn btn-small nav-theme-btn" id="themeToggle" type="button">Theme</button>
+          <button
+            class="nav-theme-btn"
+            id="themeToggle"
+            type="button"
+            aria-label="Activer le thème clair"
+            aria-pressed="false"
+          >
+            <i class="bi bi-sun-fill nav-theme-icon nav-theme-icon--to-light" aria-hidden="true"></i>
+            <i class="bi bi-moon-stars-fill nav-theme-icon nav-theme-icon--to-dark" aria-hidden="true"></i>
+          </button>
           <button
             class="nav-burger"
             id="navBurger"
@@ -72,21 +83,15 @@
           </button>
         </div>
       </div>
-      <nav class="site-nav site-nav--mobile" id="siteNavMobile" aria-label="Navigation principale mobile">
-        <ul class="nav-links nav-links--mobile">
-          <li><a href="#about" data-nav="about">A propos</a></li>
-          <li><a href="#services" data-nav="services">Services</a></li>
-          <li><a href="#skills" data-nav="skills">Competences</a></li>
-          <li><a href="#projects" data-nav="projects">Portfolio</a></li>
-          <li><a href="#subcriptions" data-nav="subcriptions">Tarification</a></li>
-          <li>
-            <a href="#social" data-nav="social"
-              ><i class="bi bi-share-fill" aria-hidden="true"></i> Social</a
-            >
-          </li>
-          <li><a href="#contact" data-nav="contact">Contact</a></li>
-        </ul>
-      </nav>
+      <div class="site-nav site-nav--mobile" id="siteNavMobile" aria-hidden="true">
+        <div class="nav-mobile-head">
+          <p class="nav-mobile-title">Menu</p>
+          <p class="nav-mobile-subtitle">Marc-Onel Volcimus</p>
+        </div>
+        <nav aria-label="Navigation mobile">
+          <ul class="nav-links nav-links--mobile" id="navLinksMobile"></ul>
+        </nav>
+      </div>
       <button
         class="nav-backdrop"
         id="navBackdrop"
@@ -694,6 +699,6 @@
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@4.3.6/dist/bundles/anime.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="script.js?v=20250612"></script>
+    <script src="script.js?v=20250613-nav2"></script>
   </body>
 </html>
