@@ -15,6 +15,41 @@ const headerOffset = () => (headerNav ? headerNav.offsetHeight + 8 : 80);
 
 let lenisInstance = null;
 
+function getScrollPosition() {
+  return lenisInstance?.scroll ?? window.scrollY ?? 0;
+}
+
+function connectLenisScrollTrigger(lenis) {
+  if (!lenis || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.scrollerProxy(document.documentElement, {
+    scrollTop(value) {
+      if (arguments.length) {
+        lenis.scrollTo(value, { immediate: true });
+      }
+      return lenis.scroll;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    },
+  });
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  ScrollTrigger.addEventListener("refresh", () => {
+    lenis.resize();
+  });
+}
+
 if (yearElement) {
   yearElement.textContent = String(new Date().getFullYear());
 }
@@ -260,23 +295,21 @@ if (heroReveal) {
 }
 
 function initLenis() {
-  if (reduceMotionGlobal || typeof Lenis === "undefined") {
+  const prefersCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+  if (reduceMotionGlobal || prefersCoarsePointer || typeof Lenis === "undefined") {
     return null;
   }
 
-  document.documentElement.classList.add("lenis-enabled");
-
   const lenis = new Lenis({
-    duration: 1.15,
+    lerp: 0.1,
     smoothWheel: true,
-    touchMultiplier: 1.4,
+    wheelMultiplier: 0.9,
+    touchMultiplier: 0,
+    infinite: false,
   });
 
-  lenis.on("scroll", () => {
-    if (typeof ScrollTrigger !== "undefined") {
-      ScrollTrigger.update();
-    }
-  });
+  connectLenisScrollTrigger(lenis);
 
   if (typeof gsap !== "undefined") {
     gsap.ticker.add((time) => {
@@ -305,7 +338,7 @@ function initLenis() {
         return;
       }
       event.preventDefault();
-      lenis.scrollTo(target, { offset: -headerOffset(), duration: 1.1 });
+      lenis.scrollTo(target, { offset: -headerOffset(), duration: 0.75 });
     });
   });
 
@@ -346,7 +379,7 @@ function initGsapScrollTrigger() {
         trigger: heroSection,
         start: "top top",
         end: "bottom top",
-        scrub: 0.6,
+        scrub: 0.35,
       },
       y: 48,
       scale: 0.96,
@@ -361,7 +394,7 @@ function initGsapScrollTrigger() {
         trigger: document.body,
         start: "top top",
         end: "max",
-        scrub: 1.2,
+        scrub: 0.4,
       },
       yPercent: 12,
       ease: "none",
@@ -546,11 +579,16 @@ function initHeaderScroll() {
   }
 
   const onScroll = () => {
-    header.classList.toggle("header--scrolled", window.scrollY > 16);
+    header.classList.toggle("header--scrolled", getScrollPosition() > 16);
   };
 
   onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
+
+  if (lenisInstance) {
+    lenisInstance.on("scroll", onScroll);
+  } else {
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
 }
 
 function updateThemeToggleUi() {
@@ -677,7 +715,7 @@ function initNavActiveSection() {
         return;
       }
 
-      if (window.scrollY < 120) {
+      if (getScrollPosition() < 120) {
         setActive("");
       }
     },
@@ -691,16 +729,19 @@ function initNavActiveSection() {
 }
 
 initLenis();
+initGsapScrollTrigger();
 initHeaderScroll();
 initMobileNav();
 initNavActiveSection();
 initSwipers();
-initGsapScrollTrigger();
 initGLightbox();
 initContactForm();
 
 if (typeof ScrollTrigger !== "undefined") {
-  window.requestAnimationFrame(() => ScrollTrigger.refresh());
+  window.requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+    lenisInstance?.resize?.();
+  });
 }
 
 const sectionTitleFocusElements = document.querySelectorAll("main .section");
