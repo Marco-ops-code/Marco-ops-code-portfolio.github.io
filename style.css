@@ -705,90 +705,21 @@ h1 {
   margin-top: 22px;
 }
 
-/* Carousel competences : pile horizontale chevauchee (carte droite au-dessus) */
-#skills .skills-stack-viewport {
-  --skill-overlap: clamp(68px, 18vw, 120px);
-  --skill-card-basis: clamp(232px, 42vw, 292px);
-  margin-top: 26px;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding: 10px 8px 28px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(96, 165, 250, 0.35) rgba(2, 6, 23, 0.28);
-  -webkit-overflow-scrolling: touch;
-}
-
-.skills-grid {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  margin-top: 0;
-  width: max-content;
-  min-width: 100%;
-  perspective: 1000px;
-  padding: 4px 2px 8px;
-}
-
 #skills .skill-card {
   position: relative;
-  flex: 0 0 var(--skill-card-basis);
-  max-width: var(--skill-card-basis);
-  margin-left: calc(-1 * var(--skill-overlap));
+  margin: 0;
   padding: 22px 22px 20px;
   border-radius: 12px;
   background: #16181d;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.35), 10px 14px 32px rgba(0, 0, 0, 0.42);
-  scroll-margin-inline: 8px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.38);
   transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
-#skills .skill-card:first-child {
-  margin-left: 0;
-}
-
-#skills .skill-card:nth-child(1) {
-  z-index: 1;
-}
-#skills .skill-card:nth-child(2) {
-  z-index: 2;
-}
-#skills .skill-card:nth-child(3) {
-  z-index: 3;
-}
-#skills .skill-card:nth-child(4) {
-  z-index: 4;
-}
-#skills .skill-card:nth-child(5) {
-  z-index: 5;
-}
-#skills .skill-card:nth-child(6) {
-  z-index: 6;
-}
-#skills .skill-card:nth-child(7) {
-  z-index: 7;
-}
-#skills .skill-card:nth-child(8) {
-  z-index: 8;
-}
-#skills .skill-card:nth-child(9) {
-  z-index: 9;
-}
-#skills .skill-card:nth-child(10) {
-  z-index: 10;
-}
-#skills .skill-card:nth-child(11) {
-  z-index: 11;
-}
-#skills .skill-card:nth-child(12) {
-  z-index: 12;
-}
-
 #skills .skill-card:hover {
-  z-index: 40;
   transform: translateY(-4px);
   border-color: rgba(96, 165, 250, 0.35);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4), 12px 18px 40px rgba(0, 0, 0, 0.48);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.44);
 }
 
 body.light #skills .skill-card {
@@ -809,13 +740,6 @@ body.light #skills .skill-card:hover {
 
 body.light #skills .skill-card-head {
   border-bottom-color: rgba(15, 23, 42, 0.1);
-}
-
-@media (max-width: 420px) {
-  #skills .skills-stack-viewport {
-    --skill-overlap: 52px;
-    --skill-card-basis: 228px;
-  }
 }
 
 .skills-carousel-controls {
@@ -1827,9 +1751,14 @@ textarea:focus {
 }
 
 .reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+html.js .reveal:not(.visible) {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
 .reveal.visible {
@@ -1837,56 +1766,56 @@ textarea:focus {
   transform: translateY(0);
 }
 
-.reveal .skills-swiper .skill-card,
-.reveal .projects-swiper .project {
+html.js .reveal:not(.visible) .skills-swiper .skill-card,
+html.js .reveal:not(.visible) .projects-swiper .project {
   opacity: 0;
   transform: translateY(16px) scale(0.98);
 }
 
-.reveal.visible .skills-swiper .skill-card,
-.reveal.visible .projects-swiper .project {
+html.js .reveal.visible .skills-swiper .skill-card,
+html.js .reveal.visible .projects-swiper .project {
   animation: staggerIn 0.55s ease forwards;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(1),
-.reveal.visible .projects-swiper .project:nth-child(1) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(1),
+html.js .reveal.visible .projects-swiper .project:nth-child(1) {
   animation-delay: 0.08s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(2),
-.reveal.visible .projects-swiper .project:nth-child(2) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(2),
+html.js .reveal.visible .projects-swiper .project:nth-child(2) {
   animation-delay: 0.16s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(3),
-.reveal.visible .projects-swiper .project:nth-child(3) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(3),
+html.js .reveal.visible .projects-swiper .project:nth-child(3) {
   animation-delay: 0.24s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(4),
-.reveal.visible .projects-swiper .project:nth-child(4) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(4),
+html.js .reveal.visible .projects-swiper .project:nth-child(4) {
   animation-delay: 0.32s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(5),
-.reveal.visible .projects-swiper .project:nth-child(5) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(5),
+html.js .reveal.visible .projects-swiper .project:nth-child(5) {
   animation-delay: 0.4s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(6),
-.reveal.visible .projects-swiper .project:nth-child(6) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(6),
+html.js .reveal.visible .projects-swiper .project:nth-child(6) {
   animation-delay: 0.48s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(7) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(7) {
   animation-delay: 0.56s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(8) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(8) {
   animation-delay: 0.64s;
 }
 
-.reveal.visible .skills-swiper .skill-card:nth-child(9) {
+html.js .reveal.visible .skills-swiper .skill-card:nth-child(9) {
   animation-delay: 0.72s;
 }
 
@@ -2039,7 +1968,7 @@ textarea:focus {
   }
 }
 
-.reveal.visible .skills-grid .skill-title-anim {
+.reveal.visible .skills-swiper .skill-title-anim {
   animation: skillTitleShine 3.4s ease-in-out infinite, skillTitleEnter 0.7s ease both;
 }
 
@@ -2210,10 +2139,6 @@ textarea:focus {
     justify-content: center;
   }
 
-  #skills .skill-card {
-    flex-basis: min(92vw, 340px);
-  }
-
   .pricing-split {
     grid-template-columns: 1fr;
   }
@@ -2229,19 +2154,18 @@ textarea:focus {
 }
 
 .skills-swiper {
-  width: min(100%, 360px);
+  width: 100%;
+  max-width: 380px;
   margin: 0 auto;
-  padding: 10px 0 6px;
-  overflow: visible;
+  padding: 10px 0 20px;
+  overflow: hidden;
 }
 
 .skills-swiper .swiper-slide.skill-card {
-  margin-left: 0;
-  flex: none;
-  max-width: none;
+  margin: 0;
   width: 100%;
   height: auto;
-  z-index: auto;
+  box-sizing: border-box;
 }
 
 .skills-swiper .skill-card:hover {
@@ -2259,7 +2183,7 @@ textarea:focus {
 }
 
 .projects-swiper {
-  overflow: visible;
+  overflow: hidden;
   padding-bottom: 36px;
 }
 

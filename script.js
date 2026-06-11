@@ -1,3 +1,6 @@
+document.documentElement.classList.remove("no-js");
+document.documentElement.classList.add("js");
+
 const yearElement = document.getElementById("year");
 const revealElements = document.querySelectorAll(".reveal");
 const themeToggle = document.getElementById("themeToggle");
@@ -58,10 +61,9 @@ function initAnimeEnhancements() {
     return;
   }
 
-  try {
-    const heroTargets = [".hero-clock", ".badge", ".hero h1", ".hero-actions .btn"];
-    anime.set(heroTargets, { opacity: 0 });
+  const heroTargets = [".hero-clock", ".badge", ".hero h1", ".hero-actions .btn"];
 
+  try {
     anime
       .timeline({
         easing: "easeOutExpo",
@@ -228,8 +230,10 @@ function initAnimeEnhancements() {
       cinematicSectionObserver.observe(section);
     });
   } catch (error) {
-    // Evite de bloquer les autres scripts (reveal, typing, theme) si anime.js change d'API.
     console.warn("Anime enhancements disabled:", error);
+    if (typeof anime?.set === "function") {
+      anime.set(heroTargets, { opacity: 1, translateY: 0, scale: 1 });
+    }
   }
 }
 
@@ -249,6 +253,11 @@ const observer = new IntersectionObserver(
 );
 
 revealElements.forEach((element) => observer.observe(element));
+
+const heroReveal = document.querySelector(".hero.reveal");
+if (heroReveal) {
+  heroReveal.classList.add("visible");
+}
 
 function initLenis() {
   if (reduceMotionGlobal || typeof Lenis === "undefined") {
@@ -319,12 +328,12 @@ function initGsapScrollTrigger() {
     gsap.from(element, {
       scrollTrigger: {
         trigger: element,
-        start: "top 88%",
-        toggleActions: "play none none reverse",
+        start: "top 90%",
+        once: true,
       },
-      y: 28,
+      y: 24,
       opacity: 0,
-      duration: 0.75,
+      duration: 0.7,
       ease: "power2.out",
     });
   });
@@ -367,12 +376,12 @@ function initGsapScrollTrigger() {
     gsap.from(intro, {
       scrollTrigger: {
         trigger: section,
-        start: "top 78%",
-        toggleActions: "play none none reverse",
+        start: "top 82%",
+        once: true,
       },
-      y: 18,
+      y: 16,
       opacity: 0,
-      duration: 0.65,
+      duration: 0.6,
       ease: "power2.out",
     });
   });
@@ -386,15 +395,11 @@ function initSwipers() {
   const skillsRoot = document.querySelector(".skills-swiper");
   if (skillsRoot) {
     new Swiper(skillsRoot, {
-      effect: reduceMotionGlobal ? "slide" : "cards",
-      grabCursor: true,
-      centeredSlides: true,
       slidesPerView: 1,
-      cardsEffect: {
-        slideShadows: false,
-        perSlideRotate: 2,
-        perSlideOffset: 10,
-      },
+      spaceBetween: 18,
+      centeredSlides: true,
+      grabCursor: true,
+      autoHeight: true,
       navigation: {
         prevEl: ".skills-swiper-prev",
         nextEl: ".skills-swiper-next",
