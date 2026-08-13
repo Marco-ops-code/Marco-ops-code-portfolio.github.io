@@ -682,54 +682,154 @@ function initProcessSpider() {
   const letter = process?.querySelector(".process-c");
   const spider = process?.querySelector(".work-steps__spider");
   const steps = process?.querySelector(".work-steps");
+  const progress = process?.querySelector(".work-steps__progress");
   if (!process || !letter || !spider || !steps || reduceMotionGlobal) {
     return;
   }
 
-  const isTwoCol = () => window.matchMedia("(max-width: 1024px) and (min-width: 761px)").matches;
+  const items = Array.from(steps.querySelectorAll(":scope > li"));
   const isVertical = () => window.matchMedia("(max-width: 760px)").matches;
   let loopTimer = 0;
+  let walkFrame = 0;
   let started = false;
 
-  function layout() {
-    process.classList.toggle("is-vertical", isVertical());
-    if (isTwoCol()) {
-      return false;
-    }
-
+  function bubblePoint(item) {
     const box = process.getBoundingClientRect();
-    const letterBox = letter.getBoundingClientRect();
-    const items = Array.from(steps.querySelectorAll(":scope > li"));
+    const rect = item.getBoundingClientRect();
+    return {
+      x: rect.left + 15 - box.left,
+      y: rect.top + 15 - box.top,
+    };
+  }
+
+  function layoutDrop() {
+    process.classList.toggle("is-vertical", isVertical());
     if (items.length < 4) {
       return false;
     }
-
-    const first = items[0].getBoundingClientRect();
+    const box = process.getBoundingClientRect();
+    const letterBox = letter.getBoundingClientRect();
+    const first = bubblePoint(items[0]);
     const webX = letterBox.left + letterBox.width / 2 - box.left;
     const webTop = letterBox.bottom - box.top - 2;
-    const landY = first.top + 15 - box.top;
     process.style.setProperty("--web-x", `${webX}px`);
     process.style.setProperty("--web-top", `${webTop}px`);
-    process.style.setProperty("--web-h", `${Math.max(28, landY - webTop)}px`);
-
-    items.forEach((item, index) => {
-      const rect = item.getBoundingClientRect();
-      if (isVertical()) {
-        process.style.setProperty(`--walk-${index}`, `${rect.top + 15 - box.top}px`);
-        process.style.setProperty("--walk-x", `${rect.left + 15 - box.left}px`);
-      } else {
-        process.style.setProperty(`--walk-${index}`, `${rect.left + 15 - box.left}px`);
-        process.style.setProperty("--walk-y", `${rect.top + 15 - box.top}px`);
-      }
-    });
+    process.style.setProperty("--web-h", `${Math.max(28, first.y - webTop)}px`);
     return true;
+  }
+
+  function setSpiderAt(point, walking) {
+    spider.style.left = `${point.x}px`;
+    spider.style.top = `${point.y}px`;
+    spider.style.transform = walking
+      ? isVertical()
+        ? "translate(-50%, calc(-100% + 3px)) rotate(90deg)"
+        : "translate(-50%, calc(-100% + 3px))"
+      : "translate(-50%, 0)";
+  }
+
+  function setProgress(ratio) {
+    if (!progress) {
+      return;
+    }
+    const value = Math.max(0, Math.min(1, ratio));
+    progress.style.transform = isVertical() ? `scaleY(${value})` : `scaleX(${value})`;
+  }
+
+  function fillUpTo(index) {
+    items.forEach((item, i) => {
+      item.classList.toggle("is-filled", i <= index);
+    });
+  }
+
+  function easeInOut(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  function stopWalk() {
+    window.cancelAnimationFrame(walkFrame);
+    walkFrame = 0;
+  }
+
+  function startWalk() {
+    stopWalk();
+    const pauseMs = 1600;
+    const moveMs = 5400;
+    setSpiderAt(items.map(bubblePoint)[0], true);
+    process.classList.toggle("is-vertical", isVertical());
+    process.classList.remove("is-dropping");
+    process.classList.add("is-walking");
+    fillUpTo(0);
+    setProgress(0.02);
+
+    let segment = 0;
+    let phaseStart = performance.now();
+
+    function tick(now) {
+      const points = items.map(bubblePoint);
+      const elapsed = now - phaseStart;
+      const moving = segment < points.length - 1;
+      const duration = moving ? (elapsed < pauseMs ? pauseMs : moveMs) : pauseMs + 2800;
+
+      if (!moving) {
+        fillUpTo(points.length - 1);
+        setProgress(1);
+        setSpiderAt(points[points.length - 1], true);
+        if (elapsed >= duration) {
+          loopTimer = window.setTimeout(startDrop, 400);
+          return;
+        }
+        walkFrame = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      if (elapsed < pauseMs) {
+        fillUpTo(segment);
+        setProgress(segment / (points.length - 1));
+        setSpiderAt(points[segment], true);
+        walkFrame = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      const moveElapsed = elapsed - pauseMs;
+      if (moveElapsed >= moveMs) {
+        segment += 1;
+        fillUpTo(segment);
+        setProgress(segment / (points.length - 1));
+        setSpiderAt(points[segment], true);
+        phaseStart = now;
+        walkFrame = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      const from = points[segment];
+      const to = points[segment + 1];
+      const p = easeInOut(moveElapsed / moveMs);
+      setSpiderAt(
+        {
+          x: from.x + (to.x - from.x) * p,
+          y: from.y + (to.y - from.y) * p,
+        },
+        true
+      );
+      setProgress((segment + p) / (points.length - 1));
+      walkFrame = window.requestAnimationFrame(tick);
+    }
+
+    walkFrame = window.requestAnimationFrame(tick);
   }
 
   function startDrop() {
     window.clearTimeout(loopTimer);
-    if (isTwoCol() || !layout()) {
+    stopWalk();
+    if (!layoutDrop()) {
       return;
     }
+    items.forEach((item) => item.classList.remove("is-filled"));
+    setProgress(0);
+    spider.style.left = "";
+    spider.style.top = "";
+    spider.style.transform = "";
     process.classList.remove("is-dropping", "is-walking");
     void process.offsetWidth;
     process.classList.add("is-dropping");
@@ -740,12 +840,7 @@ function initProcessSpider() {
       return;
     }
     if (event.animationName === "spiderDescend") {
-      process.classList.remove("is-dropping");
-      process.classList.add("is-walking");
-      return;
-    }
-    if (event.animationName === "spiderWalkX" || event.animationName === "spiderWalkY") {
-      loopTimer = window.setTimeout(startDrop, 2400);
+      startWalk();
     }
   });
 
@@ -763,8 +858,11 @@ function initProcessSpider() {
   view.observe(process);
 
   window.addEventListener("resize", () => {
-    if (process.classList.contains("is-dropping") || process.classList.contains("is-walking")) {
-      layout();
+    if (process.classList.contains("is-dropping")) {
+      layoutDrop();
+    }
+    if (process.classList.contains("is-walking")) {
+      process.classList.toggle("is-vertical", isVertical());
     }
   });
 }

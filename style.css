@@ -1911,12 +1911,8 @@ body.dark .skill-code-shell {
   transform-origin: left center;
 }
 
-#process.is-walking .work-steps__progress {
-  animation: workProgressSlow 28s linear forwards;
-}
-
-#process.is-vertical.is-walking .work-steps__progress {
-  animation-name: workProgressSlowY;
+#process.is-vertical .work-steps__progress {
+  transform-origin: top center;
 }
 
 .process-c {
@@ -1991,11 +1987,11 @@ body.dark .skill-code-shell {
   opacity: 1;
   width: 36px;
   height: 26px;
-  animation: spiderWalkX 28s linear forwards;
+  animation: none;
 }
 
 #process.is-vertical.is-walking .work-steps__spider {
-  animation-name: spiderWalkY;
+  animation: none;
 }
 
 .work-steps__spider-body {
@@ -2049,23 +2045,11 @@ body.dark .skill-code-shell {
   box-shadow: none;
 }
 
-#process.is-walking .work-steps li:nth-child(1)::before,
-#process.is-walking .work-steps li:nth-child(2)::before,
-#process.is-walking .work-steps li:nth-child(3)::before,
-#process.is-walking .work-steps li:nth-child(4)::before {
-  animation: workFillStay 28s linear forwards;
-}
-
-#process.is-walking .work-steps li:nth-child(2)::before {
-  animation-name: workFill2;
-}
-
-#process.is-walking .work-steps li:nth-child(3)::before {
-  animation-name: workFill3;
-}
-
-#process.is-walking .work-steps li:nth-child(4)::before {
-  animation-name: workFill4;
+.work-steps li.is-filled::before {
+  color: #ffffff;
+  background: var(--section-color, var(--c-green));
+  border-color: var(--section-color, var(--c-green));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--section-color, var(--c-green)) 18%, transparent);
 }
 
 @keyframes webDrop {
@@ -2809,14 +2793,16 @@ html.js .reveal:not(.visible) {
   }
 
   .work-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 32px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 12px;
   }
 
-  .work-steps::before,
-  .work-steps__track,
-  .process-cast {
-    display: none;
+  .work-steps strong {
+    font-size: 0.92rem;
+  }
+
+  .work-steps span {
+    font-size: 0.82rem;
   }
 }
 
