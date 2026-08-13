@@ -890,7 +890,7 @@ const SKILL_HIGHLIGHT_LANG = {
   css: "css",
   javascript: "javascript",
   php: "php",
-  performance: "xml",
+  performance: "javascript",
   ux: "xml",
   csharp: "csharp",
   python: "python",
@@ -959,9 +959,13 @@ $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
 echo htmlspecialchars($name ?? "", ENT_QUOTES, "UTF-8");
 ?>`,
 
-  performance: `<link rel="preload" href="/font.woff2" as="font" crossorigin>
-<img src="/hero.webp" width="1200" height="630" loading="lazy" alt="">
-<script type="module" src="/app.js"></script>`,
+  performance: `module.exports = {
+  mode: "production",
+  optimization: {
+    splitChunks: { chunks: "all" },
+    minimize: true
+  }
+};`,
 
   ux: `<button type="button" aria-expanded="false" aria-controls="menu">
   Menu
