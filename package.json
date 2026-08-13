@@ -1,5 +1,4 @@
 {
-  "dependencies": {
-    "animejs": "^4.3.6"
-  }
+  "private": true,
+  "description": "Portfolio statique GitHub Pages — aucune dépendance npm."
 }
